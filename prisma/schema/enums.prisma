@@ -1,0 +1,12 @@
+enum Role {
+  USER
+  AGENT
+  ADMIN
+}
+
+enum PropertyType {
+  APARTMENT
+  LAND
+  HOUSE
+  COMMERCIAL
+  }
