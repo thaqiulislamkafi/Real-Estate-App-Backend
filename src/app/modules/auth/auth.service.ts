@@ -3,7 +3,7 @@ import { AuthRepository } from "./auth.repository";
 /**
  * @author Thaqi Ul Islam Kafi
  * @description This file contains the service layer for the auth module.
- * @generated 2024-06-01
+ * @generated 2026-03-12
  */
 
 export const AuthService = {

@@ -4,7 +4,7 @@ import { AuthService } from "./auth.service";
 /**
  * @author Thaqi Ul Islam Kafi
  * @description This file contains the controller for the auth module.
- * @generated 2024-06-01
+ * @generated 2026-03-12
  */
 
 export const AuthController = {

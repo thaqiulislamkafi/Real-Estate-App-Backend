@@ -5,6 +5,13 @@ import { Prisma } from "../../generated/prisma/client";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
+/**
+ * @author Thaqi Ul Islam Kafi
+ * @description Global error handling middleware to catch and handle errors across the application.
+ * @generated 2026-03-11
+ */
 export const GlobalHandleError = (err:any, req:Request, res:Response, next:NextFunction) => {
 
     let statusCode:number = 500 ;

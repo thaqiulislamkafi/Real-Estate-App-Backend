@@ -5,7 +5,7 @@ import { AuthController } from "./auth.controller";
 /**
  * @author Thaqi Ul Islam Kafi
  * @description This file contains the route definitions for the auth module.
- * @generated 2024-06-01
+ * @generated 2026-03-12
  */
 
 export const AuthRouter = Router();
