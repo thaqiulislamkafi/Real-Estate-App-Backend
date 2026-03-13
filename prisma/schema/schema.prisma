@@ -30,4 +30,5 @@ model User {
   updatedAt     DateTime @updatedAt
 
   properties Property[]
+  reviews     Review[]
 }

@@ -13,8 +13,8 @@ import { validate } from "../../middleware/validate";
 import { AuthRouter } from "../auth/auth.route";
 import { addPropertySchema } from "./property.schema";
 
-AuthRouter.get('/',PropertyController.getAllProperties);
-AuthRouter.get('/:id',PropertyController.getPropertyById);
-AuthRouter.post('/',validate(addPropertySchema),PropertyController.addProperty);
-AuthRouter.put('/:id',PropertyController.updateProperty);
-AuthRouter.delete('/:id',PropertyController.deleteProperty);
+PropertyRouter.get('/',PropertyController.getAllProperties);
+PropertyRouter.get('/:id',PropertyController.getPropertyById);
+PropertyRouter.post('/',validate(addPropertySchema),PropertyController.addProperty);
+PropertyRouter.put('/:id',PropertyController.updateProperty);
+PropertyRouter.delete('/:id',PropertyController.deleteProperty);
