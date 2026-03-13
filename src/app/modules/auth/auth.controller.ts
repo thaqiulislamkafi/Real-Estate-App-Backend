@@ -41,8 +41,11 @@ export const AuthController = {
     },
 
     async updateProfile(req: Request, res: Response, next: NextFunction) {
+
         try {
-            const result = await AuthService.updateProfile(req.body);
+
+            const id = req.params.id ;
+            const result = await AuthService.updateProfile(req.body,String(id));
             res.status(200).send({
                 success: true,
                 message: "Profile updated successfully",

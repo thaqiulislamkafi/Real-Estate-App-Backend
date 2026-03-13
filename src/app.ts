@@ -3,6 +3,7 @@ import cors from 'cors';
 import { GlobalHandleError } from './app/middleware/globalHandleError';
 import { notFound } from './app/middleware/notFound';
 import { AuthRouter } from './app/modules/auth/auth.route';
+import { PropertyRouter } from './app/modules/property/property.route';
 
 export const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/auth',AuthRouter);
+app.use('/api/v1/property',PropertyRouter);
 
 app.use(GlobalHandleError);
 app.use(notFound);

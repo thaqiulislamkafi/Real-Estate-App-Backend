@@ -14,4 +14,4 @@ export const AuthRouter = Router();
 
 AuthRouter.post('/signin',validate(SignInSchema),AuthController.signIn);
 AuthRouter.post('/signup',validate(SignUpSchema),AuthController.signUp);
-AuthRouter.put('/update-profile',validate(UpdateProfileSchema),AuthController.updateProfile);
+AuthRouter.put('/update-profile/:id',validate(UpdateProfileSchema),AuthController.updateProfile);

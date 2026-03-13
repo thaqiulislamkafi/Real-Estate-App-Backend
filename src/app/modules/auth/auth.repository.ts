@@ -30,11 +30,11 @@ export const AuthRepository = {
 
     },
 
-    async updateProfile(data:User) {
+    async updateProfile(data:User,id:string) {
 
         const result = await prisma.user.update({
             where : {
-                id : data.id
+                id : id
             },
             data : data
         })

@@ -18,8 +18,8 @@ export const AuthService = {
         return result ;
     },
 
-    async updateProfile(data:any) {
-        const result = await AuthRepository.updateProfile(data);
+    async updateProfile(data:any,id:string) {
+        const result = await AuthRepository.updateProfile(data,id);
         return result ;
     },
 
