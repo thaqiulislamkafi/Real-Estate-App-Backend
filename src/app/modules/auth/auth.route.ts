@@ -1,6 +1,8 @@
 
 import { Router } from "express";
 import { AuthController } from "./auth.controller";
+import { validate } from "../../middleware/validate";
+import { SignInSchema, SignUpSchema, UpdateProfileSchema } from "./auth.schmea";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -10,6 +12,6 @@ import { AuthController } from "./auth.controller";
 
 export const AuthRouter = Router();
 
-AuthRouter.post('/signin',AuthController.signIn);
-AuthRouter.post('/signup',AuthController.signUp);
-AuthRouter.put('/update-profile',AuthController.updateProfile);
+AuthRouter.post('/signin',validate(SignInSchema),AuthController.signIn);
+AuthRouter.post('/signup',validate(SignUpSchema),AuthController.signUp);
+AuthRouter.put('/update-profile',validate(UpdateProfileSchema),AuthController.updateProfile);

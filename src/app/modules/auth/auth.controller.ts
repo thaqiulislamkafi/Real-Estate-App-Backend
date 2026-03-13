@@ -13,7 +13,6 @@ export const AuthController = {
 
         try {
             const result = await AuthService.signUp(req.body);
-            res.json(result);
             res.status(201).send({
                 success: true,
                 message: "User created successfully",

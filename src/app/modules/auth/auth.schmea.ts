@@ -16,3 +16,16 @@ export const SignUpSchema = z.object({
     address : z.string().optional(),
 
 })
+
+export const SignInSchema = z.object({
+
+    email : z.email("Invalid email address"),
+    password : z.string("Password is required").min(6,"Password must be at least 6 characters long"),
+})
+
+export const UpdateProfileSchema = z.object({
+    name : z.string("Name is required").min(3,"Name must be at least 3 characters long").optional(),
+    image : z.string().optional(),
+    contactNumber : z.string().optional(),
+    address : z.string().optional(),
+})  
