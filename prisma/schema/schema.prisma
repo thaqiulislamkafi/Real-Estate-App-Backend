@@ -31,4 +31,5 @@ model User {
 
   properties Property[]
   reviews     Review[]
+  Wishlist   Wishlist[]
 }

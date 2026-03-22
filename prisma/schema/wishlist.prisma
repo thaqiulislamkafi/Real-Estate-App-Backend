@@ -1,0 +1,8 @@
+model Wishlist {
+    id          String   @id @default(uuid())
+    userId      String
+    generatedAt DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    user     User     @relation(fields: [userId], references: [id])
+}

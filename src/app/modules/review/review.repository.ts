@@ -52,20 +52,37 @@ export const ReviewRepository = {
         const review = await prisma.review.create({
             data,
             include: {
-                property: true,
-                user: true
+                property: {
+                    select: {
+                        title: true,
+                    }
+                },
+                user: {
+                    select: {
+                        name: true,
+                    }
+                }
             }
         });
         return review;
     },
 
     async update(id: string, data: Partial<Review>) {
+
         const review = await prisma.review.update({
             where: { id },
             data,
             include: {
-                property: true,
-                user: true
+                property: {
+                    select: {
+                        title: true,
+                    }
+                },
+                user: {
+                    select: {
+                        name: true,
+                    }
+                }
             }
         });
         return review;
