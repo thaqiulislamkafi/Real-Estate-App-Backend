@@ -1,0 +1,11 @@
+model WishlistItem {
+    id         String   @id @default(uuid())
+    wishlistId String
+    propertyId Int
+    agentId    String
+    addedAt    DateTime @default(now())
+
+    wishlist Wishlist @relation(fields: [wishlistId], references: [id])
+    property Property @relation(fields: [propertyId], references: [id])
+    agent    Agent     @relation(fields: [agentId], references: [id])
+}
