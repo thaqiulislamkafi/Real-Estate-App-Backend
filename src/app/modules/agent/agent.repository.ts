@@ -1,0 +1,53 @@
+
+import { Agent } from "../../../generated/prisma/browser";
+import { prisma } from "../../../lib/prisma";
+
+/** * @author Thaqi Ul Islam Kafi
+ * @description Repository for managing agents in the database.
+ * @generated 2026-03-13
+ */
+
+export const AgentRepository = {
+
+    async findAll() {
+        const agents = await prisma.agent.findMany({
+            include: {
+                user: true,
+            }
+        });
+        return agents;
+    },
+
+    async findById(id: string) {
+        const agent = await prisma.agent.findUnique({
+            where: { id }
+        });
+        return agent;
+    },
+
+    async add(userId: string) {
+        const agent = await prisma.agent.create({
+            data: {
+                userId
+            }
+        });
+        return agent;
+    },
+
+    async update(id: string, data: Partial<Agent>) {
+
+        const agent = await prisma.agent.update({
+            where: { id },
+            data
+        });
+        return agent;
+    },
+
+    async delete(id: string) {
+        const agent = await prisma.agent.delete({
+            where: { id }
+        });
+        return agent;
+    }
+
+};

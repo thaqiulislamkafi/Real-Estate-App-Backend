@@ -1,3 +1,5 @@
+import { User } from "../../../generated/prisma/client";
+import { AgentRepository } from "../agent/agent.repository";
 import { WishlistRepository } from "../wishlist/wishlist.repository";
 import { WishlistService } from "../wishlist/wishlist.service";
 import { AuthRepository } from "./auth.repository";
@@ -10,28 +12,44 @@ import { AuthRepository } from "./auth.repository";
 
 export const AuthService = {
 
-    async signUp(data:any) {
+    async signUp(data: User) {
 
-        const userData = await AuthRepository.signUp(data);
+        let userData: User | null = null;
 
-        if(userData) {
-            await WishlistRepository.add(userData.id);
+         if (data.role === "AGENT") {
+
+            userData = await AuthRepository.signUp(data);
+
+            if (userData) {
+                await AgentRepository.add(userData.id)
+            }
+            else {
+                throw new Error("Agent generation failed");
+            }
         }
-        else {
-            throw new Error("User creation failed");
-        }
+          else {
 
-        return userData ;
+            userData = await AuthRepository.signUp(data);
+
+            if (userData) {
+                await WishlistRepository.add(userData.id);
+            }
+            else {
+                throw new Error("User creation failed");
+            }
+        }
+        
+        return userData;
     },
 
-    async signIn(data:any) {
+    async signIn(data: any) {
         const result = await AuthRepository.signIn(data);
-        return result ;
+        return result;
     },
 
-    async updateProfile(data:any,id:string) {
-        const result = await AuthRepository.updateProfile(data,id);
-        return result ;
+    async updateProfile(data: any, id: string) {
+        const result = await AuthRepository.updateProfile(data, id);
+        return result;
     },
 
 }

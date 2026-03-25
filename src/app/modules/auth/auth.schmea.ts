@@ -14,6 +14,7 @@ export const SignUpSchema = z.object({
     image : z.string().optional(),
     contactNumber : z.string().optional(),
     address : z.string().optional(),
+    role : z.enum(["USER","AGENT"], "Role must be either USER or AGENT")
 
 })
 
