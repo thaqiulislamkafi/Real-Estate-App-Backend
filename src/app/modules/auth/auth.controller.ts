@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "./auth.service";
+import { WishlistService } from "../wishlist/wishlist.service";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -12,11 +13,13 @@ export const AuthController = {
     async signUp(req: Request, res: Response, next: NextFunction) {
 
         try {
-            const result = await AuthService.signUp(req.body);
+
+            const userData = await AuthService.signUp(req.body);
+
             res.status(201).send({
                 success: true,
-                message: "User created successfully",
-                data: result
+                message: "User generated successfully",
+                data: userData
             });
 
         } catch (error) {

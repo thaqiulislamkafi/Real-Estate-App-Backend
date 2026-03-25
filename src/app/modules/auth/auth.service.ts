@@ -1,3 +1,5 @@
+import { WishlistRepository } from "../wishlist/wishlist.repository";
+import { WishlistService } from "../wishlist/wishlist.service";
 import { AuthRepository } from "./auth.repository";
 
 /**
@@ -9,8 +11,17 @@ import { AuthRepository } from "./auth.repository";
 export const AuthService = {
 
     async signUp(data:any) {
-        const result = await AuthRepository.signUp(data);
-        return result ;
+
+        const userData = await AuthRepository.signUp(data);
+
+        if(userData) {
+            await WishlistRepository.add(userData.id);
+        }
+        else {
+            throw new Error("User creation failed");
+        }
+
+        return userData ;
     },
 
     async signIn(data:any) {

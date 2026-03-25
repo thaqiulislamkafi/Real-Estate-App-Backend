@@ -33,34 +33,6 @@ export const WishlistController = {
         }
     },
 
-    async addWishlist(req: Request, res: Response, next: NextFunction) {
-
-        try {
-            const wishlist = await WishlistService.addWishlist(req.body);
-            res.status(201).send({
-                success: true,
-                message: "Wishlist added successfully",
-                data: wishlist
-            });
-        } catch (error) {
-            next(error);
-        }
-    },
-
-    async updateWishlist(req: Request, res: Response, next: NextFunction) {
-
-        try {
-            const id = req.params.id;
-            const wishlist = await WishlistService.updateWishlist(String(id), req.body);
-            res.status(200).send({
-                success: true,
-                message: "Wishlist updated successfully",
-                data: wishlist
-            });
-        } catch (error) {
-            next(error);
-        }
-    },
 
     async deleteWishlist(req: Request, res: Response, next: NextFunction) {
 

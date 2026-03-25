@@ -17,14 +17,6 @@ export const WishlistService = {
     async getWishlistById(id: string) {
         return await WishlistRepository.findById(id);
     },
-
-    async addWishlist(data: Wishlist) {
-        return await WishlistRepository.add(data);
-    },
-
-    async updateWishlist(id: string, data: Partial<Wishlist>) {
-        return await WishlistRepository.update(id, data);
-    },
     
     async deleteWishlist(id: string) {
         return await WishlistRepository.delete(id);

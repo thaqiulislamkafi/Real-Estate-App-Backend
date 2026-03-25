@@ -30,10 +30,10 @@ export const WishlistRepository = {
         return wishlist;
     },
 
-    async add(data: Wishlist) {
+    async add(userId: string) {
 
         const wishlist = await prisma.wishlist.create({
-            data,
+            data : { userId },
             include: {
                 user: true
             }
