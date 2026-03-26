@@ -13,8 +13,25 @@ model Property {
   generatedAt  DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
-  agent Agent @relation(fields: [agentId], references: [id])
+  agent         Agent          @relation(fields: [agentId], references: [id])
   wishlistItems WishlistItem[]
 
-  Review Review[]
+  Review           Review[]
+  bookedProperties BookedProperty[]
+}
+
+model BookedProperty {
+  id                   Int      @id @default(autoincrement())
+  propertyId           Int
+  userId               String
+  agentId              String
+  proposedAmount       String
+  isPropAmountAccepted Boolean  @default(false)
+  isSold               Boolean  @default(false)
+  bookedAt             DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  property Property @relation(fields: [propertyId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+  agent    Agent    @relation(fields: [agentId], references: [id])
 }
