@@ -14,6 +14,10 @@ export const WishlistItemService = {
         return await WishlistItemRepository.findAll();
     },
 
+    async getWishlistItemsByUserId(wishlistId: string) {
+        return await WishlistItemRepository.findByUserId(wishlistId);
+    },
+
     async getWishlistItemById(id: string) {
         return await WishlistItemRepository.findById(id);
     },

@@ -20,6 +20,18 @@ export const WishlistItemRepository = {
         return wishlistItems;
     },
 
+    async findByUserId(wishlistId: string) {
+        const wishlistItems = await prisma.wishlistItem.findMany({
+            where: { wishlistId: wishlistId },
+            include: {
+                property: true,
+                agent: true
+            }
+        });
+        return wishlistItems;
+    },
+
+
     async findById(id: string) {
         const wishlistItem = await prisma.wishlistItem.findUnique({
             where: { id },

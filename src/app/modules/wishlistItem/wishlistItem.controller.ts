@@ -24,6 +24,22 @@ export const WishlistItemController = {
         }
     },
 
+    async getWishlistItemsByUserId(req: Request, res: Response, next: NextFunction) {
+
+        try {
+            const wishlistId = req.params.wishlistId;
+            const wishlistItems = await WishlistItemService.getWishlistItemsByUserId(String(wishlistId));
+            res.status(200).send({
+                success: true,
+                message: "Wishlist items retrieved successfully",
+                data: wishlistItems
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+
     async getWishlistItemById(req: Request, res: Response, next: NextFunction) {
 
         try {

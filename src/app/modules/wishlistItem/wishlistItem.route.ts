@@ -14,6 +14,7 @@ export const WishlistItemRouter = Router();
 
 WishlistItemRouter.get("/", WishlistItemController.getAllWishlistItems);
 WishlistItemRouter.get("/:id", WishlistItemController.getWishlistItemById);
+WishlistItemRouter.get("/wishlist/:wishlistId", WishlistItemController.getWishlistItemsByUserId);
 WishlistItemRouter.post("/", validate(addWishlistItemSchema), WishlistItemController.addWishlistItem);
 WishlistItemRouter.put("/:id", validate(updateWishlistItemSchema), WishlistItemController.updateWishlistItem);
 WishlistItemRouter.delete("/:id", WishlistItemController.deleteWishlistItem);
