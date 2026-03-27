@@ -18,6 +18,7 @@ model Property {
 
   Review           Review[]
   bookedProperties BookedProperty[]
+  soldProperties   SoldProperty[]
 }
 
 model BookedProperty {
@@ -31,7 +32,24 @@ model BookedProperty {
   bookedAt             DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
-  property Property @relation(fields: [propertyId], references: [id])
-  user     User     @relation(fields: [userId], references: [id])
-  agent    Agent    @relation(fields: [agentId], references: [id])
+  property       Property       @relation(fields: [propertyId], references: [id])
+  user           User           @relation(fields: [userId], references: [id])
+  agent          Agent          @relation(fields: [agentId], references: [id])
+  soldProperties SoldProperty[]
+}
+
+model SoldProperty {
+  id               Int      @id @default(autoincrement())
+  bookedPropertyId Int
+  propertyId       Int
+  userId           String
+  agentId          String
+  amount           String
+  soldAt           DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  bookedProperty BookedProperty @relation(fields: [bookedPropertyId], references: [id])
+  property       Property       @relation(fields: [propertyId], references: [id])
+  user           User           @relation(fields: [userId], references: [id])
+  agent          Agent          @relation(fields: [agentId], references: [id])
 }

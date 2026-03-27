@@ -31,6 +31,7 @@ model User {
   Wishlist Wishlist[]
   agent    Agent?
   bookedProperties BookedProperty[]
+  soldProperties SoldProperty[]
 }
 
 model Agent {
@@ -43,4 +44,5 @@ model Agent {
   user          User           @relation(fields: [userId], references: [id])
   wishlistItems WishlistItem[]
   bookedProperties BookedProperty[]
+  soldProperties SoldProperty[]
 }

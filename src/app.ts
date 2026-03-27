@@ -8,6 +8,7 @@ import { ReviewRouter } from './app/modules/review/review.route';
 import { WishlistRouter } from './app/modules/wishlist/wishlist.route';
 import { WishlistItemRouter } from './app/modules/wishlistItem/wishlistItem.route';
 import { BookedPropertyRouter } from './app/modules/bookedProperty/bookedProperty.route';
+import { SoldPropertyRouter } from './app/modules/soldProperty/soldProperty.route';
 
 export const app = express();
 
@@ -22,6 +23,7 @@ app.use('/api/v1/review', ReviewRouter);
 app.use('/api/v1/wishlist', WishlistRouter);
 app.use('/api/v1/wishlist-item', WishlistItemRouter);
 app.use('/api/v1/booked-property', BookedPropertyRouter);
+app.use('/api/v1/sold-property', SoldPropertyRouter);
 
 app.use(GlobalHandleError);
 app.use(notFound);
