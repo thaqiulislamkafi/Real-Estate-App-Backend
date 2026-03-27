@@ -14,6 +14,10 @@ export const BookedPropertyService = {
         return await BookedPropertyRepository.findAll();
     },
 
+    async getBookedPropertiesByUserId(userId: string) {
+        return await BookedPropertyRepository.findByUserId(userId);
+    },
+
     async getBookedPropertyById(id: number) {
         return await BookedPropertyRepository.findById(id);
     },
@@ -23,6 +27,9 @@ export const BookedPropertyService = {
     },
 
     async updateBookedProperty(id: number, data: Partial<BookedProperty>) {
+
+        // here property data can updated as isPropAmountAccepted field update or proposedAmount field update or isSold field update.
+        
         return await BookedPropertyRepository.update(id, data);
     },
     

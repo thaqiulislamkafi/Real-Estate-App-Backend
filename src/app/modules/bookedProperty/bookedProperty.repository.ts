@@ -20,6 +20,18 @@ export const BookedPropertyRepository = {
         return bookedProperties;
     },
 
+    async findByUserId(userId: string) {
+        const bookedProperties = await prisma.bookedProperty.findMany({
+            where: { userId },
+            include: {
+                property: true,
+                user: true
+            }
+        });
+        return bookedProperties;
+    },
+
+
     async findById(id: number) {
         const bookedProperty = await prisma.bookedProperty.findUnique({
             where: { id },
@@ -43,6 +55,9 @@ export const BookedPropertyRepository = {
     },
 
     async update(id: number, data: Partial<BookedProperty>) {
+
+        // here property data can updated as isPropAmountAccepted field update or proposedAmount field update or isSold field update
+
         const bookedProperty = await prisma.bookedProperty.update({
             where: { id },
             data,

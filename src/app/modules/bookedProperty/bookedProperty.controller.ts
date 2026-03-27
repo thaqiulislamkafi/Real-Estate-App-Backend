@@ -102,6 +102,22 @@ export const BookedPropertyController = {
         }
     },
 
+    async getBookedPropertiesByUserId(req: Request, res: Response, next: NextFunction) {
+
+        try {
+
+            const userId = req.params.userId;
+            const bookedProperties = await BookedPropertyService.getBookedPropertiesByUserId(String(userId));
+            res.status(200).send({
+                success: true,
+                message: "Booked properties retrieved successfully",
+                data: bookedProperties
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async getBookedPropertyById(req: Request, res: Response, next: NextFunction) {
 
         try {
@@ -132,6 +148,8 @@ export const BookedPropertyController = {
     },
 
     async updateBookedProperty(req: Request, res: Response, next: NextFunction) {
+
+        // here property data can updated as isPropAmountAccepted field update or proposedAmount field update or isSold field update. So we can update any of these fields by this endpoint.
 
         try {
             const id = Number(req.params.id);
