@@ -44,6 +44,7 @@ export const SoldPropertyRepository = {
     },
 
     async add(data: SoldProperty) {
+
         const soldProperty = await prisma.soldProperty.create({
             data,
             include: {
@@ -51,6 +52,7 @@ export const SoldPropertyRepository = {
                 user: true
             }
         });
+        
         return soldProperty;
     },
 
