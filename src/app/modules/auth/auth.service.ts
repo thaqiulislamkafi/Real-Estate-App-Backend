@@ -12,6 +12,12 @@ import { AuthRepository } from "./auth.repository";
 
 export const AuthService = {
 
+    async getAllUsers() {
+
+        const result = await AuthRepository.getAllUsers();
+        return result ;
+    },
+
     async signUp(data: User) {
 
         let userData: User | null = null;

@@ -10,6 +10,21 @@ import { WishlistService } from "../wishlist/wishlist.service";
 
 export const AuthController = {
 
+    async getAllUsers(req: Request, res: Response, next: NextFunction) {
+
+        try {
+
+            const result = await AuthService.getAllUsers();
+            res.status(200).send({
+                success: true,
+                message: "Users retrieved successfully",
+                data: result
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async signUp(req: Request, res: Response, next: NextFunction) {
 
         try {

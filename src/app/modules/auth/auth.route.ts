@@ -12,6 +12,7 @@ import { SignInSchema, SignUpSchema, UpdateProfileSchema } from "./auth.schmea";
 
 export const AuthRouter = Router();
 
+AuthRouter.get('/',AuthController.getAllUsers);
 AuthRouter.post('/signin',validate(SignInSchema),AuthController.signIn);
 AuthRouter.post('/signup',validate(SignUpSchema),AuthController.signUp);
 AuthRouter.put('/update-profile/:id',validate(UpdateProfileSchema),AuthController.updateProfile);

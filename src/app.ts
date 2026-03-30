@@ -25,9 +25,9 @@ app.use('/api/v1/wishlist-item', WishlistItemRouter);
 app.use('/api/v1/booked-property', BookedPropertyRouter);
 app.use('/api/v1/sold-property', SoldPropertyRouter);
 
-app.use(GlobalHandleError);
-app.use(notFound);
-
 app.get('/', (req: Request, res: Response) => {
   res.send('Server is running');
 });
+
+app.use(GlobalHandleError);
+app.use(notFound);

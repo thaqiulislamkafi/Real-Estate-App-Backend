@@ -9,6 +9,12 @@ import { User } from "../../../generated/prisma/client";
 
 export const AuthRepository = {
 
+    async getAllUsers() {
+
+        const result = await prisma.user.findMany();
+        return result ;
+    },
+
     async signUp(data:User) {
 
         const result = await prisma.user.create({
