@@ -13,6 +13,10 @@ export const ReviewService = {
         return await ReviewRepository.findAll();
     },
 
+    async getAllReviewsByUserId(id: string) {
+        return await ReviewRepository.findAllById(id);
+    },
+
     async getReviewById(id: string) {
         return await ReviewRepository.findById(id);
     },

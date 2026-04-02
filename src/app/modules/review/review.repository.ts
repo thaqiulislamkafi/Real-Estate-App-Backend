@@ -28,6 +28,26 @@ export const ReviewRepository = {
         return reviews;
     },
 
+    async findAllById(id: string) {
+
+        const reviews = await prisma.review.findMany({
+            where: { userId: id },
+            include: {
+                property: {
+                    select: {
+                        title: true,
+                    }
+                },
+                user: {
+                    select: {
+                        name: true,
+                    }
+                }
+            }
+        });
+        return reviews;
+    },
+
     async findById(id: string) {
 
         const review = await prisma.review.findUnique({
