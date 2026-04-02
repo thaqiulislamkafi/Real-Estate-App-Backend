@@ -13,6 +13,10 @@ export const PropertyService = {
         return await PropertyRepository.findAll();
     },
 
+    async getPropertiesById(id: number) {
+        return await PropertyRepository.findAllById(id);
+    },
+
     async getPropertyById(id: number) {
         return await PropertyRepository.findById(id);
     },

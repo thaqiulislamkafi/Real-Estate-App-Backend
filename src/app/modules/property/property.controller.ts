@@ -23,6 +23,22 @@ export const PropertyController = {
         }
     },
 
+    async getPropertiesById(req: Request, res: Response, next: NextFunction) {
+
+        try {
+
+            const id = Number(req.params.id);
+            const properties = await PropertyService.getPropertiesById(id);
+            res.status(200).send({
+                success: true,
+                message: "Properties retrieved successfully",
+                data: properties
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async getPropertyById(req: Request, res: Response, next: NextFunction) {
 
         try {

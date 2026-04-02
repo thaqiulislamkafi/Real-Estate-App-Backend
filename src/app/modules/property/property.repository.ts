@@ -19,6 +19,14 @@ export const PropertyRepository = {
         return properties;
     },
 
+    async findAllById(id: number) {
+
+        const properties = await prisma.property.findMany({
+            where: { id }
+        });
+        return properties;
+    },
+
     async findById(id: number) {
 
         const property = await prisma.property.findUnique({
