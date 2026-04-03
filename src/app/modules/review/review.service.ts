@@ -17,6 +17,10 @@ export const ReviewService = {
         return await ReviewRepository.findAllById(id);
     },
 
+    async getAllReviewsByPropertyId(id: number) {
+        return await ReviewRepository.findAllByPropertyId(id);
+    },
+
     async getReviewById(id: string) {
         return await ReviewRepository.findById(id);
     },

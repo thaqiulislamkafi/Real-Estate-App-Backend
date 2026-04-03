@@ -13,6 +13,7 @@ export const ReviewRouter = Router();
 
 ReviewRouter.get("/", ReviewController.getAllReviews);
 ReviewRouter.get("/user/:id", ReviewController.getAllReviewsByUserId);
+ReviewRouter.get("/property/:id", ReviewController.getAllReviewsByPropertyId);
 ReviewRouter.get("/:id",ReviewController.getReviewById);
 ReviewRouter.post("/",validate(addReviewSchema) ,ReviewController.addReview);
 ReviewRouter.put("/:id", validate(updateReviewSchema), ReviewController.updateReview);

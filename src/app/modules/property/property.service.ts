@@ -13,8 +13,8 @@ export const PropertyService = {
         return await PropertyRepository.findAll();
     },
 
-    async getPropertiesById(id: number) {
-        return await PropertyRepository.findAllById(id);
+    async getPropertiesById(id: string) {
+        return await PropertyRepository.findAllByAgentId(id);
     },
 
     async getPropertyById(id: number) {

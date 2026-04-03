@@ -20,7 +20,7 @@ export const WishlistItemRepository = {
         return wishlistItems;
     },
 
-    async findByUserId(wishlistId: string) {
+    async findByWishlistId(wishlistId: string) {
         const wishlistItems = await prisma.wishlistItem.findMany({
             where: { wishlistId: wishlistId },
             include: {

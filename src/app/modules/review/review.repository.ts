@@ -48,6 +48,27 @@ export const ReviewRepository = {
         return reviews;
     },
 
+    async findAllByPropertyId(id: number) {
+
+        const reviews = await prisma.review.findMany({
+            where: { propertyId: id },
+            include: {
+                property: {
+                    select: {
+                        title: true,
+                    }
+                },
+                user: {
+                    select: {
+                        name: true,
+                    }
+                }
+            }
+        });
+        return reviews;
+    },
+
+
     async findById(id: string) {
 
         const review = await prisma.review.findUnique({
@@ -70,19 +91,7 @@ export const ReviewRepository = {
 
     async add(data: Review) {
         const review = await prisma.review.create({
-            data,
-            include: {
-                property: {
-                    select: {
-                        title: true,
-                    }
-                },
-                user: {
-                    select: {
-                        name: true,
-                    }
-                }
-            }
+            data
         });
         return review;
     },
@@ -91,19 +100,7 @@ export const ReviewRepository = {
 
         const review = await prisma.review.update({
             where: { id },
-            data,
-            include: {
-                property: {
-                    select: {
-                        title: true,
-                    }
-                },
-                user: {
-                    select: {
-                        name: true,
-                    }
-                }
-            }
+            data
         });
         return review;
     },

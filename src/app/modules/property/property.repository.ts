@@ -19,10 +19,10 @@ export const PropertyRepository = {
         return properties;
     },
 
-    async findAllById(id: number) {
+    async findAllByAgentId(id: string) {
 
         const properties = await prisma.property.findMany({
-            where: { id }
+            where: { agentId: id }
         });
         return properties;
     },
@@ -41,10 +41,7 @@ export const PropertyRepository = {
     async add(data: Property) {
 
         const property = await prisma.property.create({
-            data,
-            include: {
-                agent: true
-            }
+            data
         });
         return property;
     },
@@ -53,10 +50,7 @@ export const PropertyRepository = {
 
         const property = await prisma.property.update({
             where: { id },
-            data,
-            include: {
-                agent: true
-            }
+            data  
         });
         return property;
     },

@@ -23,12 +23,12 @@ export const PropertyController = {
         }
     },
 
-    async getPropertiesById(req: Request, res: Response, next: NextFunction) {
+    async getPropertiesByAgentId(req: Request, res: Response, next: NextFunction) {
 
         try {
 
-            const id = Number(req.params.id);
-            const properties = await PropertyService.getPropertiesById(id);
+            const id = req.params.id;
+            const properties = await PropertyService.getPropertiesById(String(id));
             res.status(200).send({
                 success: true,
                 message: "Properties retrieved successfully",

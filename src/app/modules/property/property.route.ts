@@ -14,7 +14,7 @@ import { AuthRouter } from "../auth/auth.route";
 import { addPropertySchema } from "./property.schema";
 
 PropertyRouter.get('/',PropertyController.getAllProperties);
-PropertyRouter.get('/agent/:id',PropertyController.getPropertiesById);
+PropertyRouter.get('/agent/:id',PropertyController.getPropertiesByAgentId);
 PropertyRouter.get('/:id',PropertyController.getPropertyById);
 PropertyRouter.post('/',validate(addPropertySchema),PropertyController.addProperty);
 PropertyRouter.put('/:id',PropertyController.updateProperty);
