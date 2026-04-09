@@ -14,8 +14,15 @@ export const BookedPropertyRepository = {
         const bookedProperties = await prisma.bookedProperty.findMany({
             include: {
                 property: true,
-                user: true,
-                agent: true
+                agent: true,
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
             }
         });
         return bookedProperties;
@@ -26,7 +33,15 @@ export const BookedPropertyRepository = {
             where: { userId },
             include: {
                 property: true,
-                user: true
+                agent: true,
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
             }
         });
         return bookedProperties;
@@ -38,7 +53,15 @@ export const BookedPropertyRepository = {
             where: { id },
             include: {
                 property: true,
-                user: true
+                agent: true,
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
             }
         });
         return bookedProperty;
@@ -47,10 +70,6 @@ export const BookedPropertyRepository = {
     async add(data: BookedProperty) {
         const bookedProperty = await prisma.bookedProperty.create({
             data,
-            include: {
-                property: true,
-                user: true
-            }
         });
         return bookedProperty;
     },
@@ -61,22 +80,14 @@ export const BookedPropertyRepository = {
 
         const bookedProperty = await prisma.bookedProperty.update({
             where: { id },
-            data,
-            include: {
-                property: true,
-                user: true
-            }
+            data
         });
         return bookedProperty;
     },
 
     async delete(id: number) {
         const bookedProperty = await prisma.bookedProperty.delete({
-            where: { id },
-            include: {
-                property: true,
-                user: true
-            }
+            where: { id }
         });
         return bookedProperty;
     }
