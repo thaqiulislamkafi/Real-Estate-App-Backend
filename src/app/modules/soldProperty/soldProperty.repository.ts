@@ -1,6 +1,8 @@
 
 import { SoldProperty } from "../../../generated/prisma/client";
 import { prisma } from "../../../lib/prisma";
+import { BookedPropertyRepository } from "../bookedProperty/bookedProperty.repository";
+import { PropertyRepository } from "../property/property.repository";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -15,7 +17,15 @@ export const SoldPropertyRepository = {
         const soldProperties = await prisma.soldProperty.findMany({
             include: {
                 property: true,
-                user: true
+                agent: true,
+                 user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
             }
         });
         return soldProperties;
@@ -26,7 +36,15 @@ export const SoldPropertyRepository = {
             where: { userId },
             include: {
                 property: true,
-                user: true
+                agent: true,
+                 user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
             }
         });
         return soldProperties;
@@ -37,7 +55,15 @@ export const SoldPropertyRepository = {
             where: { id },
             include: {
                 property: true,
-                user: true
+                agent: true,
+                 user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
             }
         });
         return soldProperty;
@@ -46,12 +72,16 @@ export const SoldPropertyRepository = {
     async add(data: SoldProperty) {
 
         const soldProperty = await prisma.soldProperty.create({
-            data,
-            include: {
-                property: true,
-                user: true
-            }
+            data
         });
+
+        if(soldProperty) {
+            await BookedPropertyRepository.update(soldProperty.bookedPropertyId, {isSold: true});
+            await PropertyRepository.update(soldProperty.propertyId, {isBought: true});
+        }
+        else {
+            throw new Error("Failed to generate sold property");
+        }
         
         return soldProperty;
     },
@@ -59,22 +89,14 @@ export const SoldPropertyRepository = {
     async update(id: number, data: Partial<SoldProperty>) {
         const soldProperty = await prisma.soldProperty.update({
             where: { id },
-            data,
-            include: {
-                property: true,
-                user: true
-            }
+            data
         });
         return soldProperty;
     },
 
     async delete(id: number) {
         const soldProperty = await prisma.soldProperty.delete({
-            where: { id },
-            include: {
-                property: true,
-                user: true
-            }
+            where: { id }
         });
         return soldProperty;
     }
