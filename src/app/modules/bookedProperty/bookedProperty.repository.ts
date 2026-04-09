@@ -14,7 +14,8 @@ export const BookedPropertyRepository = {
         const bookedProperties = await prisma.bookedProperty.findMany({
             include: {
                 property: true,
-                user: true
+                user: true,
+                agent: true
             }
         });
         return bookedProperties;
