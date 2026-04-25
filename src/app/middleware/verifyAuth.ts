@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "../../generated/prisma/client";
 import jwt from 'jsonwebtoken' ;
 
-export interface AuthenticatedRequest extends Request {
+export interface AuthRequest extends Request {
     user: User 
 }
 
-export const verifyAuth = (req:AuthenticatedRequest,res:Response,next:NextFunction) =>{
+export const verifyAuth = (req:AuthRequest,res:Response,next:NextFunction) =>{
 
     const token = req.headers.authorization?.split(" ")[1] ;
 
