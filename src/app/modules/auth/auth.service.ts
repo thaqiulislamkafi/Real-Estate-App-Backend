@@ -58,6 +58,11 @@ export const AuthService = {
         return result;
     },
 
+    async updatePassword(password: string, newPassword: string, id: string) {
+        const result = await AuthRepository.updatePassword(password, newPassword, id);
+        return result;
+    },
+
     async deleteUser(id: string) {
         const result = await AuthRepository.deleteUser(id);
         return result;

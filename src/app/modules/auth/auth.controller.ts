@@ -74,6 +74,22 @@ export const AuthController = {
         }
     },
 
+    async updatePassword(req: Request, res: Response, next: NextFunction) {
+
+        try {
+            const id = req.params.id;
+            const { password, newPassword } = req.body;
+            const result = await AuthService.updatePassword(password, newPassword, String(id));
+            res.status(200).send({
+                success: true,
+                message: "Password updated successfully",
+                data: result
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async deleteUser(req: Request, res: Response, next: NextFunction) {
 
         try {
