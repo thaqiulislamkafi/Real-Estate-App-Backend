@@ -1,5 +1,6 @@
 import { prisma } from "../../../lib/prisma";
 import { User } from "../../../generated/prisma/client";
+import { hashPassword } from "../../utils/hashPassword";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -17,6 +18,9 @@ export const AuthRepository = {
 
     async signUp(data:User) {
 
+        const hashedPassword = await hashPassword(data.password) ;
+        data.password = hashedPassword ;
+        
         const result = await prisma.user.create({
             data : data
         })
