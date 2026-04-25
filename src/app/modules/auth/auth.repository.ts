@@ -49,6 +49,16 @@ export const AuthRepository = {
             data : data
         })
         return result ;
+    },
+
+    async deleteUser(id:string) {
+
+        const result = await prisma.user.delete({
+            where : {
+                id : id
+            }
+        })
+        return result ;
     }
 
 }
