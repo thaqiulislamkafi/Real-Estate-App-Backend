@@ -5,7 +5,7 @@ export const sendEmailVerification = async (email: string, name: string) => {
 
     try {
 
-        const htmlContent = await renderTemplate('emailVerification', { name });
+        const htmlContent = await renderTemplate('verifyEmail', { name });
         await sendMail(email, 'Email Verification', htmlContent);
    
     } catch (error) {

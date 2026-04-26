@@ -17,4 +17,4 @@ AuthRouter.post('/signin',validate(SignInSchema),AuthController.signIn);
 AuthRouter.post('/signup',validate(SignUpSchema),AuthController.signUp);
 AuthRouter.put('/update-profile/:id',validate(UpdateProfileSchema),AuthController.updateProfile);
 AuthRouter.put('/update-password/:id',AuthController.updatePassword);
-AuthRouter.delete('/delete-user/:id',AuthController.deleteUser);
+AuthRouter.delete('/:id',AuthController.deleteUser);

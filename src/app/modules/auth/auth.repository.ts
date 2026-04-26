@@ -91,11 +91,18 @@ export const AuthRepository = {
 
     async deleteUser(id: string) {
 
+         const deleteWishlists = await prisma.wishlist.deleteMany({
+            where: {
+                userId: id
+            }
+        })
+
         const result = await prisma.user.delete({
             where: {
                 id: id
             }
         })
+
         return result;
     }
 
