@@ -2,7 +2,8 @@
 import { Request, Response, NextFunction } from "express";
 import { AgentService } from "./agent.service";
 
-/** * @author Thaqi Ul Islam Kafi
+/** 
+ * @author Thaqi Ul Islam Kafi
  * @description Controller for managing agents, handling HTTP requests and responses.
  * @generated 2026-03-13
  */
@@ -52,6 +53,37 @@ export const AgentController = {
             next(error);
         }
     },
+
+    async makeVerfied(req: Request, res: Response, next: NextFunction) {
+
+        try {
+            const id = req.params.id;
+            const agent = await AgentService.makeVerified(String(id),req.body);
+            res.status(200).send({
+                success: true,
+                message: "Agent verified successfully",
+                data: agent
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    async makeFraud(req: Request, res: Response, next: NextFunction) {
+
+        try {
+            const id = req.params.id;
+            const agent = await AgentService.makeFraud(String(id),req.body);
+            res.status(200).send({
+                success: true,
+                message: "Agent marked as fraud successfully",
+                data: agent
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
 
     async deleteAgent(req: Request, res: Response, next: NextFunction) {
 
