@@ -21,11 +21,14 @@ export const AgentRepository = {
 
     async findById(id: string) {
         const agent = await prisma.agent.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                user: true,
+            }
         });
         return agent;
     },
-
+       
     async add(userId: string) {
         const agent = await prisma.agent.create({
             data: {
@@ -60,6 +63,16 @@ export const AgentRepository = {
             where: { id },
             data
         });
+
+        if(data.isFraud){
+            await prisma.agent.update({
+                where: { id },
+                data: {
+                    isVerified: false
+                }
+            });
+        }
+
         return agent;
 
     },

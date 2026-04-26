@@ -76,7 +76,7 @@ export const AgentController = {
             const agent = await AgentService.makeFraud(String(id),req.body);
             res.status(200).send({
                 success: true,
-                message: "Agent marked as fraud successfully",
+                message: "Agent marked as fraud successfully and unverified",
                 data: agent
             });
         } catch (error) {
