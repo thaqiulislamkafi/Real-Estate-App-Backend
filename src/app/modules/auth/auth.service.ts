@@ -1,4 +1,5 @@
 import { User } from "../../../generated/prisma/client";
+import { sendEmailVerification } from "../../utils/sendEmailVerification";
 import { AgentRepository } from "../agent/agent.repository";
 import { WishlistRepository } from "../wishlist/wishlist.repository";
 import { WishlistService } from "../wishlist/wishlist.service";
@@ -25,6 +26,7 @@ export const AuthService = {
          if (data.role === "AGENT") {
 
             userData = await AuthRepository.signUp(data);
+            await sendEmailVerification(userData.email, userData.name); 
 
             if (userData) {
                 await AgentRepository.add(userData.id)
@@ -36,6 +38,7 @@ export const AuthService = {
           else {
 
             userData = await AuthRepository.signUp(data);
+            await sendEmailVerification(userData.email, userData.name); 
 
             if (userData) {
                 await WishlistRepository.add(userData.id);
