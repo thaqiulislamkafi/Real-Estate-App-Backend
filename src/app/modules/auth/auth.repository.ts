@@ -1,6 +1,7 @@
 import { prisma } from "../../../lib/prisma";
 import { User } from "../../../generated/prisma/client";
 import { hashPassword } from "../../utils/hashPassword";
+import { comparePassword } from "../../utils/comparePassword";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -13,50 +14,60 @@ export const AuthRepository = {
     async getAllUsers() {
 
         const result = await prisma.user.findMany();
-        return result ;
+        return result;
     },
 
-    async signUp(data:User) {
+    async signUp(data: User) {
 
-        const hashedPassword = await hashPassword(data.password) ;
-        data.password = hashedPassword ;
-        
+        const hashedPassword = await hashPassword(data.password);
+        data.password = hashedPassword;
+
         const result = await prisma.user.create({
-            data : data
+            data: data
         })
 
-        return result ;
+        return result;
     },
 
-    async signIn(data:{email:string,password:string}) {
+    async signIn(data: { email: string, password: string }) {
 
         const result = await prisma.user.findFirst({
-            where : {
-                email : data.email,
-                password : data.password
+            where: {
+                email: data.email,
             }
         })
-        return result ;
+
+        if (!result) {
+            throw new Error("Invalid email");
+        }
+
+        const isPasswordValid = await comparePassword(data.password, result.password);
+
+        if (!isPasswordValid) {
+            throw new Error("Invalid password");
+        }
+
+        return result;
 
     },
 
-    async updateProfile(data:User,id:string) {
+    async updateProfile(data: User, id: string) {
 
         const result = await prisma.user.update({
-            where : {
-                id : id
+            where: {
+                id: id
             },
-            data : data
+            data: data
         })
-        return result ;
+        return result;
     },
 
-    async updatePassword(password:string,newPassword:string,id:string) {
+    async updatePassword(password: string, newPassword: string, id: string) {
 
         const result = await prisma.user.findFirst({
-            where : {
-                id : id,
-                password : password
+            where: {
+                id: id,
+                password: password
             }
         })
 
@@ -64,28 +75,28 @@ export const AuthRepository = {
             throw new Error("Invalid password");
         }
 
-        const hashedPassword = await hashPassword(newPassword) ;
+        const hashedPassword = await hashPassword(newPassword);
 
         const updatedResult = await prisma.user.update({
-            where : {
-                id : id
+            where: {
+                id: id
             },
-            data : {
-                password : hashedPassword
+            data: {
+                password: hashedPassword
             }
         })
 
-        return updatedResult ;
+        return updatedResult;
     },
 
-    async deleteUser(id:string) {
+    async deleteUser(id: string) {
 
         const result = await prisma.user.delete({
-            where : {
-                id : id
+            where: {
+                id: id
             }
         })
-        return result ;
+        return result;
     }
 
 }
