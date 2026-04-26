@@ -1,8 +1,8 @@
 import { User } from "../../../generated/prisma/client";
+import { otpGenerate } from "../../utils/otpGenerate";
 import { sendEmailVerification } from "../../utils/sendEmailVerification";
 import { AgentRepository } from "../agent/agent.repository";
 import { WishlistRepository } from "../wishlist/wishlist.repository";
-import { WishlistService } from "../wishlist/wishlist.service";
 import { AuthRepository } from "./auth.repository";
 
 /**
@@ -21,12 +21,13 @@ export const AuthService = {
 
     async signUp(data: User) {
 
-        let userData: User | null = null;
+        let userData ;
+        const otp = await otpGenerate();
 
          if (data.role === "AGENT") {
 
             userData = await AuthRepository.signUp(data);
-            await sendEmailVerification(userData.email, userData.name); 
+            await sendEmailVerification(userData.email, userData.name,otp); 
 
             if (userData) {
                 await AgentRepository.add(userData.id)
@@ -38,7 +39,7 @@ export const AuthService = {
           else {
 
             userData = await AuthRepository.signUp(data);
-            await sendEmailVerification(userData.email, userData.name); 
+            await sendEmailVerification(userData.email, userData.name,otp); 
 
             if (userData) {
                 await WishlistRepository.add(userData.id);
@@ -51,12 +52,12 @@ export const AuthService = {
         return userData;
     },
 
-    async signIn(data: any) {
+    async signIn(data: {email:string,password:string}) {
         const result = await AuthRepository.signIn(data);
         return result;
     },
 
-    async updateProfile(data: any, id: string) {
+    async updateProfile(data: Partial<User>, id: string) {
         const result = await AuthRepository.updateProfile(data, id);
         return result;
     },

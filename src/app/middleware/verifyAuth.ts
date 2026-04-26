@@ -30,6 +30,7 @@ export const verifyAuth = (req:AuthRequest,res:Response,next:NextFunction) =>{
         return res.status(401).send({
             success:false,
             message:"Unauthorized Access"
+            
         }) ;
         
     }

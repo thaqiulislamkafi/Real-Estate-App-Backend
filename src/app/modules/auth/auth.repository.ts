@@ -51,7 +51,7 @@ export const AuthRepository = {
 
     },
 
-    async updateProfile(data: User, id: string) {
+    async updateProfile(data: Partial<User>, id: string) {
 
         const result = await prisma.user.update({
             where: {
@@ -96,6 +96,10 @@ export const AuthRepository = {
                 userId: id
             }
         })
+
+        if(!deleteWishlists){
+            throw new Error("Failed to delete user");
+        }
 
         const result = await prisma.user.delete({
             where: {
