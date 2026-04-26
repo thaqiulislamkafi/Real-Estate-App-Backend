@@ -7,7 +7,7 @@ import { makeFraudSchema, makeVerifiedSchema } from "./agent.schema";
 /** 
  * @author Thaqi Ul Islam Kafi
  * @description Router for managing agent-related routes, connecting HTTP endpoints to controller methods.
- * @generated 2026-03-13
+ * @generated 2026-03-26
  */
 
 export const AgentRouter = Router();
