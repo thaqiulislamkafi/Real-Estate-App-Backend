@@ -9,6 +9,7 @@ import { WishlistRouter } from './app/modules/wishlist/wishlist.route';
 import { WishlistItemRouter } from './app/modules/wishlistItem/wishlistItem.route';
 import { BookedPropertyRouter } from './app/modules/bookedProperty/bookedProperty.route';
 import { SoldPropertyRouter } from './app/modules/soldProperty/soldProperty.route';
+import { AgentRouter } from './app/modules/agent/agent.route';
 
 export const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/auth', AuthRouter);
+app.use('/api/v1/agent', AgentRouter);
 app.use('/api/v1/property', PropertyRouter);
 app.use('/api/v1/review', ReviewRouter);
 app.use('/api/v1/wishlist', WishlistRouter);
