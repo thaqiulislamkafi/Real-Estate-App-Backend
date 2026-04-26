@@ -17,4 +17,4 @@ AgentRouter.get('/:id',AgentController.getAgentById);
 AgentRouter.put('/update-agent/:id',AgentController.updateAgent);
 AgentRouter.put('/verify-agent/:id',validate(makeVerifiedSchema),AgentController.makeVerfied);
 AgentRouter.put('/fraud-agent/:id',validate(makeFraudSchema),AgentController.makeFraud);
-AgentRouter.delete('/delete-agent/:id',AgentController.deleteAgent);
+AgentRouter.delete('/:id',AgentController.deleteAgent);
