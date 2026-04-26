@@ -10,7 +10,6 @@ export const PropertyRouter = Router();
 
 import { PropertyController } from "./property.controller";
 import { validate } from "../../middleware/validate";
-import { AuthRouter } from "../auth/auth.route";
 import { addPropertySchema } from "./property.schema";
 
 PropertyRouter.get('/',PropertyController.getAllProperties);

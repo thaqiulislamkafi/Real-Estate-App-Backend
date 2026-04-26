@@ -1,5 +1,4 @@
 
-import { Wishlist } from "../../../generated/prisma/browser";
 import { WishlistRepository } from "./wishlist.repository";
 
 /**
