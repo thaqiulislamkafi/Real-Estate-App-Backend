@@ -1,4 +1,5 @@
 import { User } from "../../../generated/prisma/client";
+import { otpGenerate } from "../../utils/otpGenerate";
 import { sendEmailVerification } from "../../utils/sendEmailVerification";
 import { AgentRepository } from "../agent/agent.repository";
 import { WishlistRepository } from "../wishlist/wishlist.repository";
@@ -22,11 +23,12 @@ export const AuthService = {
     async signUp(data: User) {
 
         let userData: User | null = null;
+        const otp = await otpGenerate();
 
          if (data.role === "AGENT") {
 
             userData = await AuthRepository.signUp(data);
-            await sendEmailVerification(userData.email, userData.name); 
+            await sendEmailVerification(userData.email, userData.name,otp); 
 
             if (userData) {
                 await AgentRepository.add(userData.id)
@@ -38,7 +40,7 @@ export const AuthService = {
           else {
 
             userData = await AuthRepository.signUp(data);
-            await sendEmailVerification(userData.email, userData.name); 
+            await sendEmailVerification(userData.email, userData.name,otp); 
 
             if (userData) {
                 await WishlistRepository.add(userData.id);
