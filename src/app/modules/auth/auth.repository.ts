@@ -13,7 +13,11 @@ export const AuthRepository = {
 
     async getAllUsers() {
 
-        const result = await prisma.user.findMany();
+        const result = await prisma.user.findMany({
+            where : {
+                role : "USER"
+            }
+        });
         return result;
     },
 
