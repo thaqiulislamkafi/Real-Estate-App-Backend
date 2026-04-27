@@ -4,7 +4,7 @@ import z from "zod";
 /** 
  * @author Thaqi Ul Islam Kafi
  * @description Schema for validating agent data when adding or updating agents.
- * @generated 2026-03-13
+ * @generated 2026-03-16
  */
 
 export const makeVerifiedSchema = z.object({

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "./auth.service";
-import { WishlistService } from "../wishlist/wishlist.service";
 
 /**
  * @author Thaqi Ul Islam Kafi
