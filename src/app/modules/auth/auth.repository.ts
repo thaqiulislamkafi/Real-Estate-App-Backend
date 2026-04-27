@@ -57,7 +57,15 @@ export const AuthRepository = {
             where: {
                 id: id
             },
-            data: data
+            data: data ,
+            select: {
+                id: true,
+                name: true,
+                image: true,
+                contactNumber: true,
+                address: true
+            }
+
         })
         return result;
     },
