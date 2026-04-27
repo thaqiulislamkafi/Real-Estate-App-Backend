@@ -19,6 +19,12 @@ export const AuthService = {
         return result ;
     },
 
+    async getUserById(id: string) {
+
+        const result = await AuthRepository.getUserById(id);
+        return result ;
+    },
+
     async signUp(data: User) {
 
         let userData ;
