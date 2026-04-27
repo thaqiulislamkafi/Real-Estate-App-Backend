@@ -24,6 +24,21 @@ export const AuthController = {
         }
     },
 
+    async getUserById(req: Request, res: Response, next: NextFunction) {
+
+        try {
+            const id = req.params.id;
+            const result = await AuthService.getUserById(String(id));
+            res.status(200).send({
+                success: true,
+                message: "User retrieved successfully",
+                data: result
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async signUp(req: Request, res: Response, next: NextFunction) {
 
         try {

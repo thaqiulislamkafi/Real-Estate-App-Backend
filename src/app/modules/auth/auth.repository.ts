@@ -17,6 +17,16 @@ export const AuthRepository = {
         return result;
     },
 
+    async getUserById(id: string) {
+
+        const result = await prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+        return result;
+    },
+
     async signUp(data: User) {
 
         const hashedPassword = await hashPassword(data.password);
@@ -57,7 +67,15 @@ export const AuthRepository = {
             where: {
                 id: id
             },
-            data: data
+            data: data ,
+            select: {
+                id: true,
+                name: true,
+                image: true,
+                contactNumber: true,
+                address: true
+            }
+
         })
         return result;
     },
