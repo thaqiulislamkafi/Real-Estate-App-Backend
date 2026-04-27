@@ -83,9 +83,16 @@ export const AgentRepository = {
             where: { id }
         });
 
-        const user = await prisma.user.delete({
-            where: { id: agent.userId }
-        });
+        if(!agent){
+            throw new Error("Failed to delete agent");
+        }
+        else {
+            await prisma.user.delete({
+                where: {
+                    id: agent.userId
+                }
+            });
+        }
 
         return agent;
     }
