@@ -2,9 +2,10 @@
 import { NextFunction, Request, Response } from "express";
 import { User } from "../../generated/prisma/client";
 import jwt from 'jsonwebtoken' ;
-
+import dotenv from 'dotenv' ;
+dotenv.config() ;
 export interface AuthRequest extends Request {
-    user: User 
+    user?: User 
 }
 
 export const verifyAuth = (req:AuthRequest,res:Response,next:NextFunction) =>{
