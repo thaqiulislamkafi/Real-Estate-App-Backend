@@ -1,7 +1,9 @@
 import { User } from "../../../generated/prisma/client";
+import { ExpireTime } from "../../utils/makeExpireTime";
 import { otpGenerate } from "../../utils/otpGenerate";
 import { sendEmailVerification } from "../../utils/sendEmailVerification";
 import { AgentRepository } from "../agent/agent.repository";
+import { VerificationService } from "../verification/verfication.service";
 import { WishlistRepository } from "../wishlist/wishlist.repository";
 import { AuthRepository } from "./auth.repository";
 
@@ -29,11 +31,21 @@ export const AuthService = {
 
         let userData ;
         const otp = await otpGenerate();
+        const expiresTime = ExpireTime();
 
          if (data.role === "AGENT") {
 
             userData = await AuthRepository.signUp(data);
             await sendEmailVerification(userData.email, userData.name,otp); 
+
+            await VerificationService.addVerfication({
+                id: crypto.randomUUID(),
+                userId: userData.id,
+                otp: otp,
+                expiresAt: expiresTime,
+                generatedAt: new Date(),
+                updatedAt: new Date()
+            });
 
             if (userData) {
                 await AgentRepository.add(userData.id)
@@ -46,6 +58,15 @@ export const AuthService = {
 
             userData = await AuthRepository.signUp(data);
             await sendEmailVerification(userData.email, userData.name,otp); 
+
+            await VerificationService.addVerfication({
+                id: crypto.randomUUID(),
+                userId: userData.id,
+                otp: otp,
+                expiresAt: expiresTime,
+                generatedAt: new Date(),
+                updatedAt: new Date()
+            });
 
             if (userData) {
                 await WishlistRepository.add(userData.id);

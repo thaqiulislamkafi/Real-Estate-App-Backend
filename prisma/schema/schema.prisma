@@ -32,6 +32,7 @@ model User {
   agent    Agent?
   bookedProperties BookedProperty[]
   soldProperties SoldProperty[]
+  verification Verification?
 }
 
 model Agent {
