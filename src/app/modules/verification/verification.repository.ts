@@ -34,6 +34,14 @@ export const VerificationRepository = {
 
         if(result?.otp === otp) {
             if(result?.expiresAt && result.expiresAt > new Date()) {
+                await prisma.user.update({
+                    where: {
+                        id: userId
+                    },
+                    data: {
+                        emailVerified: true
+                    }
+                })
                 return true;
             }
             else {
