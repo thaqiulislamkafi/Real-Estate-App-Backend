@@ -18,13 +18,13 @@ export const VerificationRepository = {
             },
             update: data,
             create: data
-         })
+        })
 
         return result;
 
-        },
+    },
 
-    async verifyUser(userId: string,otp: string) {
+    async verifyUser(userId: string, otp: string) {
 
         const result = await prisma.verification.findUnique({
             where: {
@@ -32,8 +32,8 @@ export const VerificationRepository = {
             }
         })
 
-        if(result?.otp === otp) {
-            if(result?.expiresAt && result.expiresAt > new Date()) {
+        if (result?.otp === otp) {
+            if (result?.expiresAt && result.expiresAt > new Date()) {
                 await prisma.user.update({
                     where: {
                         id: userId
@@ -51,10 +51,6 @@ export const VerificationRepository = {
         else {
             throw new Error("OTP doesn't match");
         }
-
-
-        return false;
-
     }
 
 }
