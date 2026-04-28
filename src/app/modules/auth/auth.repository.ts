@@ -35,7 +35,7 @@ export const AuthRepository = {
 
         const hashedPassword = await hashPassword(data.password);
         data.password = hashedPassword;
-
+        
         const result = await prisma.user.create({
             data: data
         })
