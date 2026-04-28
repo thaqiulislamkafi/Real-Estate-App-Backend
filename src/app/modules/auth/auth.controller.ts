@@ -45,9 +45,12 @@ export const AuthController = {
 
             const userData = await AuthService.signUp(req.body);
 
+            // const token = tokenGeneration(userData);
+
             res.status(201).send({
                 success: true,
                 message: "User generated successfully",
+                // token: token,
                 data: userData
             });
 
@@ -61,9 +64,13 @@ export const AuthController = {
         try {
 
             const result = await AuthService.signIn(req.body);
+
+            // const token = tokenGeneration(result);
+
             res.status(201).send({
                 success: true,
                 message: "User signed in successfully",
+                // token: token,
                 data: result
             });
 
