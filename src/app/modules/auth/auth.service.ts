@@ -59,6 +59,15 @@ export const AuthService = {
             userData = await AuthRepository.signUp(data);
             await sendEmailVerification(userData.email, userData.name,otp); 
 
+            await VerificationService.addVerfication({
+                id: crypto.randomUUID(),
+                userId: userData.id,
+                otp: otp,
+                expiresAt: expiresTime,
+                generatedAt: new Date(),
+                updatedAt: new Date()
+            });
+
             if (userData) {
                 await WishlistRepository.add(userData.id);
             }
