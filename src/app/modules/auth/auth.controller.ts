@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "./auth.service";
+import { tokenGeneration } from "../../utils/tokenGeneration";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -45,12 +46,12 @@ export const AuthController = {
 
             const userData = await AuthService.signUp(req.body);
 
-            // const token = tokenGeneration(userData);
+            const token = tokenGeneration(userData);
 
             res.status(201).send({
                 success: true,
                 message: "User generated successfully",
-                // token: token,
+                token: token,
                 data: userData
             });
 
@@ -65,12 +66,12 @@ export const AuthController = {
 
             const result = await AuthService.signIn(req.body);
 
-            // const token = tokenGeneration(result);
+            const token = tokenGeneration(result);
 
             res.status(201).send({
                 success: true,
                 message: "User signed in successfully",
-                // token: token,
+                token: token,
                 data: result
             });
 
