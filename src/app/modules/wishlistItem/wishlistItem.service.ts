@@ -31,11 +31,12 @@ export const WishlistItemService = {
 
     async addWishlistItem(userId:string,data: WishlistItem) {
 
-        const wishlist = await WishlistRepository.findByUserId(userId);
+        let wishlist = await WishlistRepository.findByUserId(userId);
 
         if(!wishlist){
-            throw new Error("Wishlist not found for user");
+           wishlist = await WishlistRepository.add(userId);
         }
+        
         data.wishlistId = wishlist.id;
 
         return await WishlistItemRepository.add(data);
