@@ -24,11 +24,11 @@ export const WishlistItemController = {
         }
     },
 
-    async getWishlistItemsByWishlistId(req: Request, res: Response, next: NextFunction) {
+    async getWishlistItemsByUserId(req: Request, res: Response, next: NextFunction) {
 
         try {
-            const wishlistId = req.params.wishlistId;
-            const wishlistItems = await WishlistItemService.getWishlistItemsByWishlistId(String(wishlistId));
+            const userId = req.params.userId;
+            const wishlistItems = await WishlistItemService.getWishlistItemsByUserId(String(userId));
             res.status(200).send({
                 success: true,
                 message: "Wishlist items retrieved successfully",
@@ -58,7 +58,8 @@ export const WishlistItemController = {
     async addWishlistItem(req: Request, res: Response, next: NextFunction) {
 
         try {
-            const wishlistItem = await WishlistItemService.addWishlistItem(req.body);
+            const userId = req.params.userId
+            const wishlistItem = await WishlistItemService.addWishlistItem(String(userId),req.body);
             res.status(201).send({
                 success: true,
                 message: "Wishlist item added successfully",
