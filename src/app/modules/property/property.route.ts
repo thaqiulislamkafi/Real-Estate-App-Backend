@@ -11,10 +11,11 @@ export const PropertyRouter = Router();
 import { PropertyController } from "./property.controller";
 import { validate } from "../../middleware/validate";
 import { addPropertySchema } from "./property.schema";
+import { verifyAuth } from "../../middleware/verifyAuth";
 
-PropertyRouter.get('/',PropertyController.getAllProperties);
+PropertyRouter.get('/',verifyAuth,PropertyController.getAllProperties);
 PropertyRouter.get('/agent/:id',PropertyController.getPropertiesByAgentId);
-PropertyRouter.get('/:id',PropertyController.getPropertyById);
+PropertyRouter.get('/:id',verifyAuth,PropertyController.getPropertyById);
 PropertyRouter.post('/',validate(addPropertySchema),PropertyController.addProperty);
 PropertyRouter.put('/:id',PropertyController.updateProperty);
 PropertyRouter.delete('/:id',PropertyController.deleteProperty);

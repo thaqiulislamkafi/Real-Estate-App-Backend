@@ -1,5 +1,6 @@
 
 import { WishlistItem } from "../../../generated/prisma/browser";
+import { WishlistRepository } from "../wishlist/wishlist.repository";
 import { WishlistItemRepository } from "./wishlistItem.repository";
 
 /**
@@ -14,15 +15,30 @@ export const WishlistItemService = {
         return await WishlistItemRepository.findAll();
     },
 
-    async getWishlistItemsByWishlistId(wishlistId: string) {
-        return await WishlistItemRepository.findByWishlistId(wishlistId);
+    async getWishlistItemsByUserId(userId: string) {
+
+        const wishlist = await WishlistRepository.findByUserId(userId) ;
+
+        if(!wishlist){
+            throw new Error("Wishlist not found for user") ;
+        }
+        return await WishlistItemRepository.findByWishlistId(wishlist.id);
     },
 
     async getWishlistItemById(id: string) {
         return await WishlistItemRepository.findById(id);
     },
 
-    async addWishlistItem(data: WishlistItem) {
+    async addWishlistItem(userId:string,data: WishlistItem) {
+
+        let wishlist = await WishlistRepository.findByUserId(userId);
+
+        if(!wishlist){
+           wishlist = await WishlistRepository.add(userId);
+        }
+        
+        data.wishlistId = wishlist.id;
+
         return await WishlistItemRepository.add(data);
     },
 
