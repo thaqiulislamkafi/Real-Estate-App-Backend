@@ -8,7 +8,6 @@ import { z } from "zod";
  */
 
 export const addWishlistItemSchema = z.object({
-    wishlistId: z.string("Wishlist ID is required"),
     propertyId: z.number("Property ID is required"),
     agentId: z.string("Agent ID is required"),
 });

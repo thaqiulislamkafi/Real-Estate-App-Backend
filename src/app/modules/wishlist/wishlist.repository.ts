@@ -30,6 +30,16 @@ export const WishlistRepository = {
         return wishlist;
     },
 
+    async findByUserId(userId: string) {
+
+        const wishlist = await prisma.wishlist.findUnique({
+            where:{
+                userId : userId
+            }
+        });
+        return wishlist;
+    },
+
     async add(userId: string) {
 
         const wishlist = await prisma.wishlist.create({
