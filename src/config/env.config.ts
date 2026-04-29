@@ -19,6 +19,9 @@ const envSchema = z.object({
     EMAIL_SENDER_SMTP_HOST : z.string().min(1, 'SMTP host is required'),
     EMAIL_SENDER_SMTP_PORT : z.string().min(1, 'SMTP port is required'),
     EMAIL_SENDER_SMTP_FROM : z.string().min(1, 'SMTP from email is required'),
+    ADMIN_EMAIL : z.email('Admin email must be valid'),
+    ADMIN_NAME : z.string('Admin Name is required'),
+    ADMIN_PASSWORD : z.string().min(6, 'Admin password must be at least 6 characters')
 
 }) ;
 
