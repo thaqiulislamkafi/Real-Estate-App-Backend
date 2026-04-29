@@ -5,7 +5,7 @@ model WishlistItem {
     agentId    String
     addedAt    DateTime @default(now())
 
-    wishlist Wishlist @relation(fields: [wishlistId], references: [id])
-    property Property @relation(fields: [propertyId], references: [id])
+    wishlist Wishlist @relation(fields: [wishlistId], references: [id],onDelete: Cascade)
+    property Property @relation(fields: [propertyId], references: [id], onDelete:Cascade)
     agent    Agent     @relation(fields: [agentId], references: [id])
 }
