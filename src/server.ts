@@ -4,7 +4,7 @@ import { env } from "./config/env.config";
 
 const bootStrap =()=>{
 
-    const PORT = env.PORT
+    const PORT = Number(env.PORT) ;
     try {
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
