@@ -9,5 +9,8 @@ export interface envType {
     EMAIL_SENDER_SMTP_HOST : string ;
     EMAIL_SENDER_SMTP_PORT : string ;
     EMAIL_SENDER_SMTP_FROM : string ;
+    ADMIN_EMAIL : string ;
+    ADMIN_NAME : string ; 
+    ADMIN_PASSWORD : string ;
 
 }
