@@ -1,8 +1,6 @@
-
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
 import { mailConfig } from '../config/mail.config';
-dotenv.config();
+import { env } from '../config/env.config';
 
 /** 
  * @author Thaqi Ul Islam Kafi
@@ -16,7 +14,7 @@ export const sendMail = async (to: string, subject: string, html: string) => {
     try {
         
         const info = await transporter.sendMail({
-            from: process.env.EMAIL_SENDER_SMTP_FROM,
+            from: env.EMAIL_SENDER_SMTP_FROM,
             to,
             subject,
             html,

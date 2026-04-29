@@ -1,5 +1,6 @@
 import z from "zod";
 import dotenv from 'dotenv'
+import { envType } from "../types/env.type";
 dotenv.config()
 
 /** 
@@ -10,13 +11,13 @@ dotenv.config()
 
 const envSchema = z.object({
 
-    PORT : z.string().default('5000'),
+    PORT : z.number().default(5000),
     DATABASE_URL : z.string().min(1,'Database url is required'),
     JWT_SECRET_KEY : z.string().min(6,'JWT SECRET KEYmust be 6 characters'),
     EMAIL_SENDER_SMTP_USER : z.string().min(1, 'SMTP user is required'),
     EMAIL_SENDER_SMTP_PASS : z.string().min(1, 'SMTP password is required'),
     EMAIL_SENDER_SMTP_HOST : z.string().min(1, 'SMTP host is required'),
-    EMAIL_SENDER_SMTP_PORT : z.string().min(1, 'SMTP port is required'),
+    EMAIL_SENDER_SMTP_PORT : z.number().min(1, 'SMTP port is required'),
     EMAIL_SENDER_SMTP_FROM : z.string().min(1, 'SMTP from email is required'),
 
 }) ;
@@ -29,4 +30,4 @@ if(!parsedEnv.success) {
     process.exit(1)
 }
 
-export const env = parsedEnv.data
+export const env : envType = parsedEnv.data
