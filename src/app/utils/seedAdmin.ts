@@ -17,7 +17,8 @@ export const seedAdmin = async()=>{
         })
 
          if(ifAdminExist){
-                console.log("Admin already exist in database")
+                console.log("Admin already exist in database");
+                return ;
             }
 
         const hashedPassword = await hashPassword(adminPassword) ;
@@ -27,6 +28,7 @@ export const seedAdmin = async()=>{
                 email : adminEmail,
                 name : adminName,
                 password : hashedPassword,
+                emailVerified : true,
                 role : "ADMIN"
             }
         })
