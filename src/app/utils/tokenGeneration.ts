@@ -1,3 +1,4 @@
+import { env } from "../../config/env.config";
 import { User } from "../../generated/prisma/client";
 import jwt from "jsonwebtoken";
 
@@ -9,7 +10,7 @@ import jwt from "jsonwebtoken";
 
 export const tokenGeneration = (data:User): string => {
 
-    const secretKey = process.env.JWT_SECRET_KEY as string;
+    const secretKey = env.JWT_SECRET_KEY as string;
 
     const token = jwt.sign({data},`${secretKey}`,{
         expiresIn: "7d"

@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
+
+import { env } from './env.config';
 
 /** 
  * @author Thaqi Ul Islam Kafi
@@ -10,10 +10,10 @@ dotenv.config();
 export const mailConfig = {
     secure: true,
     auth: {
-        user: process.env.EMAIL_SENDER_SMTP_USER,
-        pass: process.env.EMAIL_SENDER_SMTP_PASS,
+        user: env.EMAIL_SENDER_SMTP_USER,
+        pass: env.EMAIL_SENDER_SMTP_PASS,
     },
-    host: process.env.EMAIL_SENDER_SMTP_HOST,
-    port: Number(process.env.EMAIL_SENDER_SMTP_PORT),
+    host: env.EMAIL_SENDER_SMTP_HOST,
+    port: Number(env.EMAIL_SENDER_SMTP_PORT),
 
 };

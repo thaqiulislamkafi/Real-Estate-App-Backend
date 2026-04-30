@@ -1,10 +1,13 @@
 import { app } from "./app";
+import { seedAdmin } from "./app/utils/seedAdmin";
+import { env } from "./config/env.config";
 
-const PORT = process.env.PORT || 5000;
+const bootStrap = async()=>{
 
-const bootStrap =()=>{
+    const PORT = Number(env.PORT) ;
 
     try {
+        await seedAdmin() ;
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         }   
