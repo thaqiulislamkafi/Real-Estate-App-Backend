@@ -101,13 +101,18 @@ export const AuthRepository = {
         const result = await prisma.user.findFirst({
             where: {
                 id: id,
-                password: password
             }
         })
 
-        if (!result) {
-            throw new Error("Invalid password");
+         if (!result) {
+            throw new Error("Id not found");
         }
+
+        const isPasswordValid = await comparePassword(password, result.password);
+
+       if(!isPasswordValid){
+            throw new Error('Password given Wrong')
+       }
 
         const hashedPassword = await hashPassword(newPassword);
 
