@@ -65,6 +65,21 @@ export const AuthRepository = {
 
     },
 
+    async changeEmail (id:string,email:string) {
+
+        const result = await prisma.user.update({
+            where : {
+                id
+            },
+            data : {
+                email : email,
+                emailVerified : false
+            }
+        }) ;
+
+        return result ;
+    },
+
     async updateProfile(data: Partial<User>, id: string) {
 
         const result = await prisma.user.update({

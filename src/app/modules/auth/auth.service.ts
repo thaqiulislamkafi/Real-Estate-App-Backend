@@ -84,6 +84,27 @@ export const AuthService = {
         return result;
     },
 
+    async changeEmail (id:string,email:string){
+
+        const otp = await otpGenerate() ;
+        const expiresTime = ExpireTime() ;
+
+        const result = await AuthRepository.changeEmail(id,email);
+
+        await sendEmailVerification(email,result.name,otp) ;
+
+        await VerificationService.addVerfication({
+                id: crypto.randomUUID(),
+                userId: result.id,
+                otp: otp,
+                expiresAt: expiresTime,
+                generatedAt: new Date(),
+                updatedAt: new Date()
+            });
+
+        return result ;
+    },
+
     async updateProfile(data: Partial<User>, id: string) {
         const result = await AuthRepository.updateProfile(data, id);
         return result;

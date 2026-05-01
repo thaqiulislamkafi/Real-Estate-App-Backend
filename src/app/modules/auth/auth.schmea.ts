@@ -24,6 +24,10 @@ export const SignInSchema = z.object({
     password : z.string("Password is required").min(6,"Password must be at least 6 characters long"),
 })
 
+export const changeEmailSchema = z.object({
+    email : z.email("Invalid email address"),
+})
+
 export const UpdateProfileSchema = z.object({
     name : z.string("Name is required").min(3,"Name must be at least 3 characters long").optional(),
     image : z.string().optional(),
