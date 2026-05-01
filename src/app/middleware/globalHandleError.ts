@@ -23,7 +23,8 @@ export const GlobalHandleError = (err:any, req:Request, res:Response, next:NextF
         statusCode = 400 ;
 
         const zodErrorResult = handleZodError(err)
-        
+        errorMessage = zodErrorResult.message ;
+        errorDetails = zodErrorResult.errors
         
     }
 
