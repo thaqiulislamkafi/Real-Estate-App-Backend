@@ -80,6 +80,23 @@ export const AuthController = {
         }
     },
 
+    async changeEmail(req: Request, res: Response, next: NextFunction){
+
+         try {
+
+            const id = req.params.id;
+            const {email} = req.body ;
+            const result = await AuthService.changeEmail(String(id),email);
+            res.status(200).send({
+                success: true,
+                message: "Email Changed Successfully and otp send",
+                data: result
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async updateProfile(req: Request, res: Response, next: NextFunction) {
 
         try {

@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { AuthController } from "./auth.controller";
 import { validate } from "../../middleware/validate";
-import { SignInSchema, SignUpSchema, UpdateProfileSchema } from "./auth.schmea";
+import { changeEmailSchema, SignInSchema, SignUpSchema, UpdateProfileSchema } from "./auth.schmea";
 import { verifyAuth } from "../../middleware/verifyAuth";
 
 /**
@@ -17,6 +17,7 @@ AuthRouter.get('/',verifyAuth,AuthController.getAllUsers);
 AuthRouter.get('/:id',verifyAuth,AuthController.getUserById);
 AuthRouter.post('/signin',validate(SignInSchema),AuthController.signIn);
 AuthRouter.post('/signup',validate(SignUpSchema),AuthController.signUp);
+AuthRouter.put('/user/change-email/:id',validate(changeEmailSchema),AuthController.changeEmail) ;
 AuthRouter.put('/update-profile/:id',validate(UpdateProfileSchema),AuthController.updateProfile);
 AuthRouter.put('/update-password/:id',AuthController.updatePassword);
 AuthRouter.delete('/:id',AuthController.deleteUser);

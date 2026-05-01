@@ -14,8 +14,8 @@ export const AuthRepository = {
     async getAllUsers() {
 
         const result = await prisma.user.findMany({
-            where : {
-                role : "USER"
+            where: {
+                role: "USER"
             }
         });
         return result;
@@ -35,7 +35,7 @@ export const AuthRepository = {
 
         const hashedPassword = await hashPassword(data.password);
         data.password = hashedPassword;
-        
+
         const result = await prisma.user.create({
             data: data
         })
@@ -65,13 +65,25 @@ export const AuthRepository = {
 
     },
 
+    async changeEmail(id: string, email: string) {
+        const result = await prisma.user.update({
+            where: { id },
+            data: {
+                email,
+                emailVerified: false
+            }
+        })
+        return result
+    },
+
+
     async updateProfile(data: Partial<User>, id: string) {
 
         const result = await prisma.user.update({
             where: {
                 id: id
             },
-            data: data ,
+            data: data,
             select: {
                 id: true,
                 name: true,
@@ -113,13 +125,13 @@ export const AuthRepository = {
 
     async deleteUser(id: string) {
 
-         const deleteWishlists = await prisma.wishlist.deleteMany({
+        const deleteWishlists = await prisma.wishlist.deleteMany({
             where: {
                 userId: id
             }
         })
 
-        if(!deleteWishlists){
+        if (!deleteWishlists) {
             throw new Error("Failed to delete user");
         }
 
