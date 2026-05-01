@@ -69,14 +69,14 @@ export const AgentController = {
         }
     },
 
-    async makeFraud(req: Request, res: Response, next: NextFunction) {
+    async manageFraud(req: Request, res: Response, next: NextFunction) {
 
         try {
             const id = req.params.id;
-            const agent = await AgentService.makeFraud(String(id),req.body);
+            const agent = await AgentService.manageFraud(String(id),req.body);
             res.status(200).send({
                 success: true,
-                message: "Agent marked as fraud successfully and unverified",
+                message: `Agent marked as ${agent.isFraud ? 'Fraud':'UnFraud'} successfully`,
                 data: agent
             });
         } catch (error) {

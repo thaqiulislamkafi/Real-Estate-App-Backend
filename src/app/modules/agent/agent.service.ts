@@ -26,8 +26,8 @@ export const AgentService = {
         return await AgentRepository.makeVerified(id,data);
     },
 
-    async makeFraud(id:string,data:{isFraud:boolean}){
-        return await AgentRepository.makeFraud(id,data);
+    async manageFraud(id:string,data:{isFraud:boolean}){
+        return await AgentRepository.manageFraud(id,data);
     },
 
     async deleteAgent(id: string) {
