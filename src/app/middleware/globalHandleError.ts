@@ -3,6 +3,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
 import { Prisma } from "../../generated/prisma/client";
+import { ZodError } from "zod"
+import { handleZodError } from "../utils/handleZodError";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -15,6 +17,15 @@ export const GlobalHandleError = (err:any, req:Request, res:Response, next:NextF
     let statusCode:number = 500 ;
     let errorMessage:string = 'Internal Server Error' ;
     let errorDetails = err ;
+    
+    if(err instanceof ZodError) {
+
+        statusCode = 400 ;
+
+        const zodErrorResult = handleZodError(err)
+        
+        
+    }
 
     if((err) instanceof Prisma.PrismaClientKnownRequestError){
 
