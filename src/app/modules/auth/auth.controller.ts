@@ -85,7 +85,8 @@ export const AuthController = {
          try {
 
             const id = req.params.id;
-            const result = await AuthService.changeEmail(String(id),req.body);
+            const {email} = req.body ;
+            const result = await AuthService.changeEmail(String(id),email);
             res.status(200).send({
                 success: true,
                 message: "Email Changed Successfully and otp send",
