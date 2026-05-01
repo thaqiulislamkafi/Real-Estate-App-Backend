@@ -57,22 +57,13 @@ export const AgentRepository = {
         return agent ;
     },
 
-    async makeFraud(id: string,data: { isFraud: boolean }) {
+    async manageFraud(id: string,data: { isFraud: boolean }) {
 
         const agent = await prisma.agent.update({
             where: { id },
             data
         });
-
-        if(data.isFraud){
-            await prisma.agent.update({
-                where: { id },
-                data: {
-                    isVerified: false
-                }
-            });
-        }
-
+        
         return agent;
 
     },
