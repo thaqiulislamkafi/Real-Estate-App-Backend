@@ -11,6 +11,7 @@ import { BookedPropertyRouter } from './app/modules/bookedProperty/bookedPropert
 import { SoldPropertyRouter } from './app/modules/soldProperty/soldProperty.route';
 import { AgentRouter } from './app/modules/agent/agent.route';
 import { VerificationRouter } from './app/modules/verification/verification.route';
+import { NotificationRouter } from './app/modules/notification/notification.route';
 
 export const app = express();
 
@@ -22,12 +23,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1/auth', AuthRouter);
 app.use('/api/v1/agent', AgentRouter);
 app.use('/api/v1/verification', VerificationRouter);
+
 app.use('/api/v1/property', PropertyRouter);
 app.use('/api/v1/review', ReviewRouter);
 app.use('/api/v1/wishlist', WishlistRouter);
+
 app.use('/api/v1/wishlist-item', WishlistItemRouter);
 app.use('/api/v1/booked-property', BookedPropertyRouter);
 app.use('/api/v1/sold-property', SoldPropertyRouter);
+
+app.use('/api/v1/notification',NotificationRouter) ;
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Server is running');
