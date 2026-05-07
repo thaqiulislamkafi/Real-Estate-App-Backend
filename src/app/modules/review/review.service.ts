@@ -44,7 +44,17 @@ export const ReviewService = {
     },
 
     async deleteReview(id: string) {
-        return await ReviewRepository.delete(id);
+
+        const result = await ReviewRepository.delete(id) ;
+
+        await NotificationService.addNotification({
+                    title: 'Review Deleted',
+                    message: `Admin or user deleted the review number ${result.id}`,
+                    receiverRole: 'USER',
+                    receiverId : result.userId
+                });
+
+        return result;
     }
 }
 
