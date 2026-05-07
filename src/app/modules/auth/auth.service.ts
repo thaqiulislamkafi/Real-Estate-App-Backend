@@ -3,6 +3,7 @@ import { ExpireTime } from "../../utils/makeExpireTime";
 import { otpGenerate } from "../../utils/otpGenerate";
 import { sendEmailVerification } from "../../utils/sendEmailVerification";
 import { AgentRepository } from "../agent/agent.repository";
+import { NotificationService } from "../notification/notification.service";
 import { VerificationService } from "../verification/verfication.service";
 import { WishlistRepository } from "../wishlist/wishlist.repository";
 import { AuthRepository } from "./auth.repository";
@@ -53,6 +54,13 @@ export const AuthService = {
             else {
                 throw new Error("Agent generation failed");
             }
+
+            await NotificationService.addNotification({
+                title : 'New User Registrated',
+                message : `${userData.name} is new registrated in our app`,
+                receiverRole : 'ADMIN'
+            })
+
         }
           else {
 
@@ -74,6 +82,12 @@ export const AuthService = {
             else {
                 throw new Error("User creation failed");
             }
+
+            await NotificationService.addNotification({
+                title : 'New Agent Registrated',
+                message : `${userData.name} is new registrated as agent in our app`,
+                receiverRole : 'ADMIN'
+            })
         }
         
         return userData;
@@ -102,6 +116,12 @@ export const AuthService = {
                 updatedAt: new Date()
             });
 
+        await NotificationService.addNotification({
+                title : 'Changing Email',
+                message : `${result.name} changed his email`,
+                receiverRole : 'ADMIN'
+            })
+
         return result ;
     },
 
@@ -112,11 +132,28 @@ export const AuthService = {
 
     async updatePassword(password: string, newPassword: string, id: string) {
         const result = await AuthRepository.updatePassword(password, newPassword, id);
+
+        await NotificationService.addNotification({
+                title : 'Changing Password',
+                message : `${result.name} changed his password`,
+                receiverRole : 'ADMIN'
+
+            })
+
         return result;
     },
 
     async deleteUser(id: string) {
+
         const result = await AuthRepository.deleteUser(id);
+
+        await NotificationService.addNotification({
+                title : 'User Deleted',
+                message : `${result.name} deleted by Admin`,
+                receiverRole : 'ADMIN'
+
+            })
+
         return result;
     }
 

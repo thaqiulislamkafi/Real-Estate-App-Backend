@@ -1,4 +1,5 @@
 import { Property } from "../../../generated/prisma/client";
+import { NotificationService } from "../notification/notification.service";
 import { PropertyRepository } from "./property.repository";
 
 /**
@@ -22,14 +23,23 @@ export const PropertyService = {
     },
 
     async addProperty(data: Property) {
-        return await PropertyRepository.add(data);
+
+        const result = await PropertyRepository.add(data);
+
+        await NotificationService.addNotification({
+            title: 'Property Added',
+            message: `New Property ${result.title} is added`,
+            receiverRole: 'ADMIN',
+        });
+
+        return result;
     },
 
     async updateProperty(id: number, data: Partial<Property>) {
         return await PropertyRepository.update(id, data);
     },
-    
+
     async deleteProperty(id: number) {
         return await PropertyRepository.delete(id);
-     }
+    }
 };

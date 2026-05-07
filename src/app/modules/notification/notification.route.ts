@@ -1,0 +1,18 @@
+import { Router } from "express";
+import { NotificationController } from "./notification.controller";
+import { validate } from "../../middleware/validate";
+import { addNotificationSchema, updateNotificationSchema } from "./notification.schema";
+
+/**
+ * @author Thaqi Ul Islam Kafi
+ * @description Route definitions for notification-related endpoints, connecting HTTP methods to controller actions.
+ * @generated 2026-05-05
+ */
+
+export const NotificationRouter = Router();
+
+NotificationRouter.get("/", NotificationController.getAllNotifications);
+NotificationRouter.get("/:id", NotificationController.getNotificationById);
+NotificationRouter.post("/", validate(addNotificationSchema), NotificationController.addNotification);
+NotificationRouter.put("/:id", validate(updateNotificationSchema), NotificationController.updateNotification);
+NotificationRouter.delete("/:id", NotificationController.deleteNotification);
