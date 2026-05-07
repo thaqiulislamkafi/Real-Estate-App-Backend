@@ -1,5 +1,6 @@
 
 import { BookedProperty } from "../../../generated/prisma/client";
+import { NotificationService } from "../notification/notification.service";
 import { BookedPropertyRepository } from "./bookedProperty.repository";
 
 /**
@@ -23,7 +24,17 @@ export const BookedPropertyService = {
     },
 
     async addBookedProperty(data: BookedProperty) {
-        return await BookedPropertyRepository.add(data);
+
+        const result =  await BookedPropertyRepository.add(data) ;
+        
+        await NotificationService.addNotification({
+            title : 'New Property Booked',
+            message : 'Check your property list',
+            receiverRole : 'AGENT',
+            receiverId : result.agentId
+        }) ;
+
+        return result;
     },
 
     async updateBookedProperty(id: number, data: Partial<BookedProperty>) {

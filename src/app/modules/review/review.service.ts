@@ -1,4 +1,5 @@
 import { Review } from "../../../generated/prisma/client";
+import { NotificationService } from "../notification/notification.service";
 import { ReviewRepository } from "./review.repository";
 
 /**
@@ -26,7 +27,16 @@ export const ReviewService = {
     },
 
     async addReview(data: Review) {
-        return await ReviewRepository.add(data);
+
+        const result = await ReviewRepository.add(data) ;
+
+        await NotificationService.addNotification({
+                    title: 'New Review Added',
+                    message: `${result.user.name} reviewed in ${result.property.title} property`,
+                    receiverRole: 'ADMIN',
+                });
+
+        return result ;
     },
 
     async updateReview(id: string, data: Partial<Review>) {
@@ -34,7 +44,17 @@ export const ReviewService = {
     },
 
     async deleteReview(id: string) {
-        return await ReviewRepository.delete(id);
+
+        const result = await ReviewRepository.delete(id) ;
+
+        await NotificationService.addNotification({
+                    title: 'Review Deleted',
+                    message: `Admin or user deleted the review number ${result.id}`,
+                    receiverRole: 'USER',
+                    receiverId : result.userId
+                });
+
+        return result;
     }
 }
 
