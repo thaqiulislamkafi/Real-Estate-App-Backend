@@ -56,8 +56,8 @@ export const AuthService = {
             }
 
             await NotificationService.addNotification({
-                title : 'New User Registrated',
-                message : `${userData.name} is new registrated in our app`,
+                title : 'New Agent Registrated',
+                message : `${userData.name} is new registrated as Agent in our app`,
                 receiverRole : 'ADMIN'
             })
 
@@ -84,8 +84,8 @@ export const AuthService = {
             }
 
             await NotificationService.addNotification({
-                title : 'New Agent Registrated',
-                message : `${userData.name} is new registrated as agent in our app`,
+                title : 'New User Registrated',
+                message : `${userData.name} is new user registrated in our app`,
                 receiverRole : 'ADMIN'
             })
         }

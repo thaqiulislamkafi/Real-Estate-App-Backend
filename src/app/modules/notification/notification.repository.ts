@@ -23,6 +23,18 @@ export const NotificationRepository = {
     return notification;
   },
 
+  async findByUserId(id:string){
+
+    const notifications = await prisma.notification.findMany({
+      where : {
+        receiverId : id
+      }
+    })
+    
+    return notifications ;
+
+  },
+
   async add(data: NotificationCreateInput) {
     const notification = await prisma.notification.create({ data });
     return notification;

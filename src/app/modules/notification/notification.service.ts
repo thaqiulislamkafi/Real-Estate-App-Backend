@@ -17,6 +17,10 @@ export const NotificationService = {
         return await NotificationRepository.findById(id);
     },
 
+    async getNotificationsByUserId(id:string){
+        return await NotificationRepository.findByUserId(id) ;
+    },
+
     async addNotification(data: NotificationCreateInput) {
         return await NotificationRepository.add(data);
     },

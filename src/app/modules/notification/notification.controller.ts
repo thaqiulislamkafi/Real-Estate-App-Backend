@@ -36,6 +36,22 @@ export const NotificationController = {
         }
     },
 
+    async getNotificationsByUserId(req: Request, res: Response, next: NextFunction){
+
+        try {
+            const userId = req.params.userId
+            const notifications = await NotificationService.getNotificationsByUserId(String(userId));
+            res.status(201).send({
+                success: true,
+                message: `Notification fetched Successfuly for ${userId} id`,
+                data: notifications
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+
     async addNotification(req: Request, res: Response, next: NextFunction) {
         try {
             const notification = await NotificationService.addNotification(req.body);

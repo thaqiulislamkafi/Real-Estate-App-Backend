@@ -13,6 +13,7 @@ export const NotificationRouter = Router();
 
 NotificationRouter.get("/", NotificationController.getAllNotifications);
 NotificationRouter.get("/:id", NotificationController.getNotificationById);
+NotificationRouter.get('/user/:userId',NotificationController.getNotificationsByUserId) ;
 NotificationRouter.post("/", validate(addNotificationSchema), NotificationController.addNotification);
 NotificationRouter.put("/:id", validate(updateNotificationSchema), NotificationController.updateNotification);
 NotificationRouter.delete("/:id", NotificationController.deleteNotification);
