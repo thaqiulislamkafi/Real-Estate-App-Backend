@@ -1,4 +1,5 @@
 import { Notification } from "../../../generated/prisma/client";
+import { NotificationCreateInput } from "../../../generated/prisma/models";
 import { NotificationRepository } from "./notification.repository";
 
 /**
@@ -16,7 +17,7 @@ export const NotificationService = {
         return await NotificationRepository.findById(id);
     },
 
-    async addNotification(data: Notification) {
+    async addNotification(data: NotificationCreateInput) {
         return await NotificationRepository.add(data);
     },
 

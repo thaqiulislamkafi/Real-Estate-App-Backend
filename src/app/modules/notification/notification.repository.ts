@@ -1,4 +1,5 @@
 import { Notification } from "../../../generated/prisma/client";
+import { NotificationCreateInput } from "../../../generated/prisma/models";
 import { prisma } from "../../../lib/prisma";
 
 /**
@@ -22,7 +23,7 @@ export const NotificationRepository = {
     return notification;
   },
 
-  async add(data: Notification) {
+  async add(data: NotificationCreateInput) {
     const notification = await prisma.notification.create({ data });
     return notification;
   },
