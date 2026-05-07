@@ -91,7 +91,11 @@ export const ReviewRepository = {
 
     async add(data: Review) {
         const review = await prisma.review.create({
-            data
+            data,
+            include : {
+                property :true,
+                user : true
+            }
         });
         return review;
     },
