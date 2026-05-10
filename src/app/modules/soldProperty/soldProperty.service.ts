@@ -2,6 +2,7 @@
 import { SoldProperty } from "../../../generated/prisma/client";
 import { BookedPropertyRepository } from "../bookedProperty/bookedProperty.repository";
 import { NotificationService } from "../notification/notification.service";
+import { PropertyRepository } from "../property/property.repository";
 import { SoldPropertyRepository } from "./soldProperty.repository";
 
 /**
@@ -27,6 +28,7 @@ export const SoldPropertyService = {
     async addSoldProperty(data: SoldProperty) {
 
         await BookedPropertyRepository.update(data.bookedPropertyId, { isSold: true });
+        await PropertyRepository.update(data.propertyId, { isBought: true });
 
         const result = await SoldPropertyRepository.add(data);
 

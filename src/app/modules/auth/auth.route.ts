@@ -18,6 +18,7 @@ AuthRouter.get('/:id',verifyAuth,AuthController.getUserById);
 AuthRouter.post('/signin',validate(SignInSchema),AuthController.signIn);
 AuthRouter.post('/signup',validate(SignUpSchema),AuthController.signUp);
 AuthRouter.put('/user/change-email/:id',validate(changeEmailSchema),AuthController.changeEmail) ;
+AuthRouter.put('/user/resend-otp',AuthController.resendOTP);
 AuthRouter.put('/update-profile/:id',validate(UpdateProfileSchema),AuthController.updateProfile);
 AuthRouter.put('/update-password/:id',AuthController.updatePassword);
 AuthRouter.delete('/:id',AuthController.deleteUser);
