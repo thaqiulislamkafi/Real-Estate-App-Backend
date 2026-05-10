@@ -97,6 +97,21 @@ export const AuthController = {
         }
     },
 
+    async resendOTP(req: Request, res: Response, next: NextFunction){
+
+         try {
+            const {email,name,userId} = req.body ;
+            const result = await AuthService.resendOTP({email,name,userId});
+            res.status(200).send({
+                success: true,
+                message: "OTP Resend Successfully",
+                data: result
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async updateProfile(req: Request, res: Response, next: NextFunction) {
 
         try {
