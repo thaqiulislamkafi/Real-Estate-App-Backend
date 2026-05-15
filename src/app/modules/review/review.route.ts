@@ -2,6 +2,8 @@ import { Router } from "express";
 import { ReviewController } from "./review.controller";
 import { validate } from "../../middleware/validate";
 import { addReviewSchema, updateReviewSchema } from "./review.schema";
+import { verifyAuth } from "../../middleware/verifyAuth";
+import { verifyAdmin } from "../../middleware/verifyAdmin";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -11,11 +13,11 @@ import { addReviewSchema, updateReviewSchema } from "./review.schema";
 
 export const ReviewRouter = Router();
 
-ReviewRouter.get("/", ReviewController.getAllReviews);
+ReviewRouter.get("/",verifyAuth,verifyAdmin, ReviewController.getAllReviews);
 ReviewRouter.get("/user/:id", ReviewController.getAllReviewsByUserId);
 ReviewRouter.get("/property/:id", ReviewController.getAllReviewsByPropertyId);
 ReviewRouter.get("/:id",ReviewController.getReviewById);
-ReviewRouter.post("/",validate(addReviewSchema) ,ReviewController.addReview);
-ReviewRouter.put("/:id", validate(updateReviewSchema), ReviewController.updateReview);
-ReviewRouter.delete("/:id", ReviewController.deleteReview);
+ReviewRouter.post("/",verifyAuth,validate(addReviewSchema) ,ReviewController.addReview);
+ReviewRouter.put("/:id",verifyAuth, validate(updateReviewSchema), ReviewController.updateReview);
+ReviewRouter.delete("/:id",verifyAuth, ReviewController.deleteReview);
 

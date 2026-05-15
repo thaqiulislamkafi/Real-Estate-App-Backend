@@ -2,6 +2,8 @@ import { Router } from "express";
 import { NotificationController } from "./notification.controller";
 import { validate } from "../../middleware/validate";
 import { addNotificationSchema, updateNotificationSchema } from "./notification.schema";
+import { verifyAuth } from "../../middleware/verifyAuth";
+import { verifyAdmin } from "../../middleware/verifyAdmin";
 
 /**
  * @author Thaqi Ul Islam Kafi
@@ -11,9 +13,9 @@ import { addNotificationSchema, updateNotificationSchema } from "./notification.
 
 export const NotificationRouter = Router();
 
-NotificationRouter.get("/", NotificationController.getAllNotifications);
+NotificationRouter.get("/",verifyAuth,verifyAdmin, NotificationController.getAllNotifications);
 NotificationRouter.get("/:id", NotificationController.getNotificationById);
-NotificationRouter.get('/user/:userId',NotificationController.getNotificationsByUserId) ;
+NotificationRouter.get('/user/:userId',verifyAuth,NotificationController.getNotificationsByUserId) ;
 NotificationRouter.post("/", validate(addNotificationSchema), NotificationController.addNotification);
 NotificationRouter.put("/:id", validate(updateNotificationSchema), NotificationController.updateNotification);
-NotificationRouter.delete("/:id", NotificationController.deleteNotification);
+NotificationRouter.delete("/:id",verifyAuth,verifyAdmin, NotificationController.deleteNotification);
